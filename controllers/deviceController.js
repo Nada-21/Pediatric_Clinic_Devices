@@ -54,7 +54,7 @@ function getDeviceByDeviceID(req, res){
 }
 //====================================================================================================================
 function getting(joinConditions, whereConditions){
-    const sql_query = `SELECT devices.DeviceID, Devices.DName, Devices.DType, Devices.DManufacturer, Devices.PurchaseDate, Devices.ExpiryDate, Devices.DStatus
+    const sql_query = `SELECT devices.DeviceID, devices.DName, devices.DType, devices.DManufacturer, devices.PurchaseDate, devices.ExpiryDate, devices.DStatus
     FROM devices
     ${joinConditions}
     WHERE devices.DeviceID IS NOT NULL ${whereConditions}` ;
