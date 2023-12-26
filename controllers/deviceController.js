@@ -7,7 +7,7 @@ function createDevice(req, res) {
     
     const sql_query = `INSERT INTO devices (DName, DType, DManufacturer, PurchaseDate, ExpiryDate, DStatus) VALUES (?, ?, ?, ?, ?, ?)`;
     Promise.all(Devices.map((Devices) => { return new Promise((resolve, reject) => {
-      connection.query(sql_query, [Devices.DName, Devices.DType, Devices.DManufacturer, Devices.PurchaseDate, Devices.ExpiryDate, Devices.DStatus], (DevicesErr, result) => {
+      connection.query(sql_query, [Devices.DeviceName, Devices.DeviceType, Devices.DeviceManufacturer, Devices.PurchaseDate, Devices.ExpiryDate, Devices.DeviceStatus], (DevicesErr, result) => {
         if (DevicesErr) {
           console.error("Error adding device:", DevicesErr);
           res.status(500).json({ error: "Internal Server Error" });
@@ -84,9 +84,9 @@ function processquery(result){
 //===================================================================================================================
 function updateDevice(req, res){
     const DeviceID = req.params.deviceID;
-    const {DStatus }= req.body;          //Device Status can be updated
+    const {DeviceStatus }= req.body;          //Device Status can be updated
     const sql_query = `UPDATE devices SET DStatus = ? WHERE DeviceID = ? `;
-    connection.query(sql_query, [DStatus, DeviceID], (err, result) => {
+    connection.query(sql_query, [DeviceStatus, DeviceID], (err, result) => {
       if (err) throw err;
       if (result.affectedRows === 0) {
         res.status(404).json({ message: "No device with DeviceID:"+ DeviceID +' was found.' });
